@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookEasy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(270deg, #ff00cc, #333399, #00ff99);
+            background-size: 600% 600%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            animation: gradientAnimation 10s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            width: 350px;
+            text-align: center;
+            animation: containerZoom 2s ease;
+        }
+
+        @keyframes containerZoom {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        h1 {
+            color: #ff00cc;
+            font-size: 2em;
+            animation: colorChange 5s linear infinite;
+        }
+
+        h4 {
+            color: #333399;
+            font-size: 1.2em;
+            animation: colorChange 5s linear infinite 1s;
+        }
+
+        @keyframes colorChange {
+            0%, 100% { color: #ff00cc; }
+            25% { color: #333399; }
+            50% { color: #00ff99; }
+            75% { color: #ff00cc; }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            color: #333;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn-submit {
+            background-color: #333399;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            padding: 10px 20px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.1);
+        }
+
+        .form-footer {
+            margin-top: 20px;
+        }
+
+        .form-footer a {
+            color: #333399;
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BookEasy</h1>
+        <h4>Create an Account</h4>
+        <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+            <div class="form-group">
+                <label for="firstn">First Name</label>
+                <input type="text" name="firstn" id="firstn" placeholder="Enter your first name" required>
+            </div>
+            <div class="form-group">
+                <label for="lastn">Last Name</label>
+                <input type="text" name="lastn" id="lastn" placeholder="Enter your last name" required>
+            </div>
+            <div class="form-group">
+                <label for="pno">Phone Number</label>
+                <input type="number" name="pno" id="pno" placeholder="1234567890" required>
+            </div>
+            <div class="form-group">
+                <label for="mail">Email</label>
+                <input type="email" name="mail" id="mail" placeholder="example@gmail.com" required>
+            </div>
+            <div class="form-group">
+                <label for="pword">Password</label>
+                <input type="password" name="pword" id="pword" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" name="submit" class="btn-submit">Sign Up</button>
+        </form>
+        <div class="form-footer">
+            Already have an account? <a href="login.php">Login Here</a>
+        </div>
+    </div>
+</body>
+</html>
