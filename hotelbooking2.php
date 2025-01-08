@@ -3,10 +3,9 @@ include 'dbc.php'; // Include your database connection
 
 // Start session
 session_start();
-include 'dbc.php'; // Include your database connection file
 
 if (!isset($_SESSION['name'])) {
-    echo "<script>alert('Please log in to book a movie.');</script>";
+    echo "<script>alert('Please log in to book a hotel.');</script>";
     echo "<script>window.location.href='login.php';</script>";
     exit();
 }
@@ -23,8 +22,6 @@ if (!$userData) {
     echo "<script>window.location.href='login.php';</script>";
     exit();
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -79,25 +76,32 @@ if (!$userData) {
             $price = $_POST['price'];
             $cin = date('Y-m-d', strtotime($_POST['cin']));
             $cout = date('Y-m-d', strtotime($_POST['cout']));
-
-            $query = "INSERT INTO bhotal (location, hotel, name, user_email, roomtype, price, cin, cout) 
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            
+            // The `status` field will default to 'Pending'
+            $status = 'Pending';
+        
+            // Adjust the query to match the number of parameters
+            $query = "INSERT INTO bhotal (location, hotel, name, user_email, roomtype, price, cin, cout, status) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             $stmt = $con->prepare($query);
-            $stmt->bind_param("ssssssss", $location, $hotel, $name, $email, $roomtype, $price, $cin, $cout);
-
+        
+            // Bind the parameters properly
+            $stmt->bind_param("sssssssss", $location, $hotel, $name, $email, $roomtype, $price, $cin, $cout, $status);
+        
+            // Execute the statement and handle success or failure
             if ($stmt->execute()) {
                 // Get the last inserted booking ID
                 $bookingId = $stmt->insert_id;
-            
+                
                 // Redirect to the fake payment page with the booking ID
                 echo "<script>window.location.href='payment.php?booking_id=$bookingId';</script>";
                 exit();
             } else {
-                echo "<script>alert('Booking Failed');</script>";
+                echo "<script>alert('Booking Failed: " . $stmt->error . "');</script>";
             }
-            echo "<script>window.location.href='home3.php';</script>" ;// Reset to step 1 after booking
         }
     }
+        
     ?>
 
     <!-- Step 1: Select Location -->
